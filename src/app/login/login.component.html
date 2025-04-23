@@ -1,0 +1,28 @@
+<div class="login-wrapper" >
+  <div class="login-card">
+    <h2 class="welcome-text">Bienvenue sur la plateforme EduSync</h2>
+  
+
+    <div class="form-group">
+      <label for="role">Rôle</label>
+      <select id="role" class="form-control" [(ngModel)]="role">
+        <option value="admin">Administrateur</option>
+        <option value="etudiant">Étudiant</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>{{ role === 'admin' ? "Nom d'utilisateur" : 'INE' }}</label>
+      <input [(ngModel)]="identifiant" type="text" class="form-control" placeholder="Entrer votre identifiant" />
+    </div>
+
+    <div class="form-group">
+      <label>Mot de passe</label>
+      <input [(ngModel)]="password" type="password" class="form-control" placeholder="Mot de passe" />
+    </div>
+
+    <button (click)="onLogin()" class="btn btn-login">Se Connecter</button>
+
+    <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+  </div>
+</div>

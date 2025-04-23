@@ -1,0 +1,66 @@
+<mat-toolbar color="primary" class="mb-4">
+  <span>Dashboard Étudiant</span>
+</mat-toolbar>
+
+<div class="container">
+  <div class="row">
+    <!-- Infos Étudiant -->
+    <div class="col-md-4">
+      <mat-card class="mb-3 shadow rounded-3">
+        <mat-card-title>Profil</mat-card-title>
+        <mat-card-content>
+          <p><strong>Nom :</strong> {{ student?.name }}</p>
+          <p><strong>Email :</strong> {{ student?.email }}</p>
+          <p><strong>Filière :</strong> {{ student?.course }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Cours en cours -->
+    <div class="col-md-8">
+      <mat-card class="mb-3 shadow rounded-3">
+        <mat-card-title>Cours en cours</mat-card-title>
+        <mat-card-content>
+          <div *ngIf="student?.courses?.length > 0; else noCourses">
+            <ul class="list-group">
+              <li class="list-group-item d-flex justify-content-between align-items-center"
+                  *ngFor="let course of student.courses">
+                {{ course.name }}
+                <span class="badge bg-info text-dark">{{ course.status }}</span>
+              </li>
+            </ul>
+          </div>
+          <ng-template #noCourses>
+            <p>Aucun cours disponible.</p>
+          </ng-template>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Notes -->
+      <mat-card class="shadow rounded-3">
+        <mat-card-title>Notes</mat-card-title>
+        <mat-card-content>
+          <div *ngIf="student?.grades?.length > 0; else noGrades">
+            <table class="table table-striped table-hover mt-2">
+              <thead class="table-light">
+                <tr>
+                  <th>Matière</th>
+                  <th>Note</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let grade of student.grades">
+                  <td>{{ grade.subject }}</td>
+                  <td>{{ grade.score }}/20</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <ng-template #noGrades>
+            <p>Pas encore de notes disponibles.</p>
+          </ng-template>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

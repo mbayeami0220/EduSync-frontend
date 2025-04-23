@@ -1,0 +1,10 @@
+<div *ngIf="etudiants.length > 0; else noEtudiants">
+    <ul>
+      <li *ngFor="let etudiant of etudiants">
+        {{ etudiant.nom }} {{ etudiant.prenom }} - {{ etudiant.formation }} (Promo: {{ etudiant.promo }})
+      </li>
+    </ul>
+  </div>
+  <ng-template #noEtudiants>
+    <p>Aucun étudiant trouvé.</p>
+  </ng-template>

@@ -1,0 +1,76 @@
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+  <div class="card p-4 shadow w-100" style="max-width: 700px;">
+    <h4 class="text-center mb-4">Ajouter un Étudiant</h4>
+
+    <form (ngSubmit)="ajouterEtudiant()" #etudiantForm="ngForm" class="row g-3">
+
+      <!-- INE -->
+      <div class="col-12 col-md-6">
+        <label for="ine" class="form-label">INE <i class="fas fa-id-card"></i></label>
+        <input type="text" id="ine" name="ine" class="form-control" [(ngModel)]="etudiant.ine" required />
+      </div>
+
+      <!-- Nom -->
+      <div class="col-12 col-md-6">
+        <label for="nom" class="form-label">Nom <i class="fas fa-user"></i></label>
+        <input type="text" id="nom" name="nom" class="form-control" [(ngModel)]="etudiant.nom" required />
+      </div>
+
+      <!-- Prénom -->
+      <div class="col-12 col-md-6">
+        <label for="prenom" class="form-label">Prénom <i class="fas fa-user-circle"></i></label>
+        <input type="text" id="prenom" name="prenom" class="form-control" [(ngModel)]="etudiant.prenom" required />
+      </div>
+
+      <!-- Date de naissance -->
+      <div class="col-12 col-md-6">
+        <label for="date_naissance" class="form-label">Date de Naissance <i class="fas fa-calendar-day"></i></label>
+        <input type="date" id="date_naissance" name="date_naissance" class="form-control" [(ngModel)]="etudiant.date_naissance" required />
+      </div>
+
+      <!-- Formation -->
+      <div class="col-12 col-md-6">
+        <label for="formation" class="form-label">Formation <i class="fas fa-book"></i></label>
+        <input type="text" id="formation" name="formation" class="form-control" [(ngModel)]="etudiant.formation" required />
+      </div>
+
+      <!-- Promo -->
+      <div class="col-12 col-md-6">
+        <label for="promo" class="form-label">Promotion <i class="fas fa-calendar-check"></i></label>
+        <input type="text" id="promo" name="promo" class="form-control" [(ngModel)]="etudiant.promo" required />
+      </div>
+
+      <!-- Année début -->
+      <div class="col-12 col-md-6">
+        <label for="annee_debut" class="form-label">Année de Début <i class="fas fa-calendar-plus"></i></label>
+        <input type="number" id="annee_debut" name="annee_debut" class="form-control" [(ngModel)]="etudiant.annee_debut" required />
+      </div>
+
+      <!-- Année sortie -->
+      <div class="col-12 col-md-6">
+        <label for="annee_sortie" class="form-label">Année de Sortie <i class="fas fa-calendar-times"></i></label>
+        <input type="number" id="annee_sortie" name="annee_sortie" class="form-control" [(ngModel)]="etudiant.annee_sortie" required />
+      </div>
+
+      <!-- Diplômes -->
+      <div class="col-12">
+        <label for="diplomes" class="form-label">Diplômes <i class="fas fa-award"></i></label>
+        <input type="text" id="diplomes" name="diplomes" class="form-control" [(ngModel)]="etudiant.diplomes" />
+      </div>
+
+      <!-- Autres Formations -->
+      <div class="col-12">
+        <label for="autres_formations" class="form-label">Autres Formations <i class="fas fa-briefcase"></i></label>
+        <input type="text" id="autres_formations" name="autres_formations" class="form-control" [(ngModel)]="etudiant.autres_formations" />
+      </div>
+     
+
+      <!-- Bouton d'ajout -->
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary w-100" [disabled]="!etudiantForm.form.valid">
+          <i class="fas fa-user-plus"></i> Ajouter
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
