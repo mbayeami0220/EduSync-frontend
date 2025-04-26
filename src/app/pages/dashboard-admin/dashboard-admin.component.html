@@ -24,11 +24,13 @@
 
     <nav class="navbar navbar-light bg-white border-bottom px-3">
       <span class="navbar-brand">Dashboard Administration</span>
-      <button mat-button color="warn">Déconnexion</button>
+      <button (click)="onLogout()">Déconnexion</button>
+
+  
     </nav>
 
     <div class="container-fluid p-4">
-      <router-outlet></router-outlet> <!-- 👈 c’est ici qu’on affiche le contenu dynamique -->
+      <router-outlet></router-outlet> 
     </div>
   </div>
 </div>

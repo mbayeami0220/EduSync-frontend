@@ -57,12 +57,9 @@
       </div>
 
       <div class="col-12 text-center">
-        <button type="submit" class="btn btn-success w-100" [disabled]="courrierForm.invalid || isLoading">
-          <i *ngIf="!isLoading" class="fas fa-paper-plane me-2"></i>
-          <i *ngIf="isLoading" class="fas fa-spinner fa-spin me-2"></i>
-          {{ isLoading ? 'Envoi en cours...' : 'Envoyer' }}
+        <button type="submit" class="btn btn-success w-100" [disabled]="courrierForm.invalid">
+          <i class="fas fa-paper-plane me-2"></i>Envoyer
         </button>
-        
       </div>
     </form>
 
@@ -72,7 +69,14 @@
 
     <hr class="my-4" />
 
-    <h4 class="text-center"><i class="fas fa-list-ul me-2"></i>Liste des Courriers</h4>
+    <h4 class="text-center">
+
+
+      <a [routerLink]="['/dashboard-admin/liste-courriers']" class="text-decoration-none">
+        <i class="fas fa-list-ul me-2"></i>Liste des Courriers
+      </a>
+    </h4>
+    
     <ul class="list-group mt-2">
       <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let courrier of courriers">
         <span>

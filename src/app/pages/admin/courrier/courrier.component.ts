@@ -4,16 +4,15 @@ import { CourrierService } from '../../../services/courrier.service';
 import { HttpClient } from '@angular/common/http';
 import { NgIf,NgFor } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-courrier',
-  imports:[NgIf,NgFor,ReactiveFormsModule],
+  imports:[NgIf,NgFor,ReactiveFormsModule,RouterModule],
   templateUrl: './courrier.component.html',
   styleUrls: ['./courrier.component.css']
 })
 export class CourrierComponent implements OnInit {
-  isLoading: boolean = false;
-
   courriers: any[] = [];
 
   courrier = {
@@ -70,27 +69,32 @@ export class CourrierComponent implements OnInit {
       this.selectedFile = input.files[0];
     }
   }
-  onSubmit() {
-    if (this.courrierForm.invalid) return;
-  
-    this.isLoading = true;
-  
-    // Simule une requête réseau (remplace par ton vrai service HTTP)
-    this.courrierService.ajouterCourrier(this.courrierForm.value).subscribe({
-      next: (res) => {
-        this.successMessage = "Courrier ajouté avec succès !";
-        this.errorMessage = '';
-        this.courrierForm.reset();
-        this.isLoading = false;
-        this.getCourriers(); // recharge la liste
-      },
-      error: (err) => {
-        this.errorMessage = "Une erreur s’est produite.";
-        this.successMessage = '';
-        this.isLoading = false;
-      }
-    });
-  }
-  
 
+  onSubmit(): void {
+    if (this.courrierForm.invalid) {
+      this.errorMessage = 'Veuillez remplir tous les champs';
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('type', this.courrierForm.value.type);
+    formData.append('objet', this.courrierForm.value.objet);
+    formData.append('date_reception', this.courrierForm.value.date_reception);
+    formData.append('expediteur', this.courrierForm.value.expediteur);
+    formData.append('destinataire', this.courrierForm.value.destinataire);
+    formData.append('fichier', this.courrierForm.value.fichier);
+    if (this.selectedFile) {
+      formData.append('fichier', this.selectedFile, this.selectedFile.name);
+    }
+
+    this.courrierService.ajouterCourrier(formData).subscribe(
+      response => {
+        this.successMessage = 'Courrier ajouté avec succès';
+        this.courrierForm.reset();
+      },
+      error => {
+        this.errorMessage = 'Une erreur est survenue, veuillez réessayer';
+      }
+    );
+  }
 }

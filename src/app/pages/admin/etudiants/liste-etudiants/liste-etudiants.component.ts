@@ -29,33 +29,34 @@ export class ListeEtudiantsComponent implements OnInit {
   dataSource!: MatTableDataSource<any>;
   filterValue: string = '';
 
-  
-
   constructor(private etudiantsService: EtudiantsService, private router: Router) {}
 
   ngOnInit(): void {
+    this.getEtudiants();  // Charge les étudiants au démarrage
+  }
+
+  getEtudiants(): void {
     this.etudiantsService.getEtudiants().subscribe(data => {
       this.etudiants = data;
       this.dataSource = new MatTableDataSource(this.etudiants);
     });
   }
-  applyFilter() {
+
+  applyFilter(): void {
     this.dataSource.filter = this.filterValue.trim().toLowerCase();
+    // Forcer le rafraîchissement de la table pour les changements de filtre
+    this.dataSource._updateChangeSubscription();
   }
+
   modifierEtudiant(ine: string): void {
     this.router.navigate(['/modifier-etudiant', ine]);
   }
-  
-  
+
   supprimerEtudiant(ine: string): void {
     if (confirm(`Confirmer la suppression de l'étudiant INE ${ine} ?`)) {
       this.etudiantsService.deleteEtudiant(ine).subscribe({
         next: () => {
-          this.etudiants = [...this.etudiants.filter(e => e.ine !== ine)];
-
-         
-
-    
+          this.getEtudiants();  // Recharge la liste des étudiants après suppression
           alert('Étudiant supprimé avec succès.');
         },
         error: (err) => {
@@ -65,7 +66,5 @@ export class ListeEtudiantsComponent implements OnInit {
       });
     }
   }
-  
 }
-
 

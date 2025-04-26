@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import {jwtDecode} from 'jwt-decode';
+interface JwtPayload {
+  exp: number;
+  [key: string]: any;
+}
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -32,7 +37,33 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
-  isLoggedIn(): boolean {
-    return !!this.getToken();
-  }
+  
+
+
+isTokenExpired(): boolean {
+  const token = this.getToken();
+  if (!token) return true;
+
+  const decoded: any = jwtDecode(token);
+  const now = Math.floor(Date.now() / 1000);
+  return decoded.exp < now;
+}
+
+isLoggedIn(): boolean {
+  const token = this.getToken();
+  if (!token) return false;
+
+  const decoded: JwtPayload = jwtDecode(token);
+  const now = Math.floor(Date.now() / 1000);
+  return decoded.exp > now;
+}
+onlogout() {
+  // Supprimer le token du localStorage
+  localStorage.removeItem('token');
+  // Rediriger vers la page de login
+  this.router.navigate(['/']);
+}
+
+
+
 }

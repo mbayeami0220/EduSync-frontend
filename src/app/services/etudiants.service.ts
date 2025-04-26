@@ -12,7 +12,7 @@ export class EtudiantsService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   getEtudiants(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl, { headers: this.getHeaders() });
+    return this.http.get<any[]>(this.apiUrl, { headers: this.getHeaders(),responseType: 'json'  });
   }
 
   getEtudiantByIne(ine: string): Observable<any> {
@@ -30,6 +30,7 @@ export class EtudiantsService {
   deleteEtudiant(ine: string): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${ine}`, { headers: this.getHeaders() });
   }
+  
 
   // Méthode pour récupérer les en-têtes, y compris le token d'authentification
   private getHeaders(): HttpHeaders {

@@ -1,4 +1,4 @@
-// src/app/etudiants/etudiant.ts
+
 
 export interface Etudiant {
     ine: string;
@@ -11,6 +11,7 @@ export interface Etudiant {
     annee_sortie: string;
     diplomes: string;
     autres_formations: string;
+    password:string;
   
   }
   

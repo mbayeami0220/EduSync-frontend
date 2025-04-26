@@ -1,15 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-
+import { AuthService } from './services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports:[RouterOutlet],
+  standalone: true,
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   currentView: string = 'login';
+  isAddingStudent = false;
+
+  constructor(
+    public authService: AuthService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    if (this.authService.getToken() && this.authService.isTokenExpired()) {
+      this.authService.logout();
+      this.router.navigate(['/login']);
+    }
+  }
 
   navigateToDashboard() {
     this.currentView = 'dashboard';
@@ -18,9 +33,8 @@ export class AppComponent {
   navigateToLogin() {
     this.currentView = 'login';
   }
-  isAddingStudent = false; // ← Déclare ici la propriété
 
   toggleView() {
-    this.isAddingStudent = !this.isAddingStudent; // ← Bascule entre les vues
+    this.isAddingStudent = !this.isAddingStudent;
   }
 }
