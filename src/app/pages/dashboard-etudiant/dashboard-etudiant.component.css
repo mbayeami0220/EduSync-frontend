@@ -1,0 +1,15 @@
+html, body {
+    height: 100%;
+    margin: 0;
+  }
+  
+  .container-fluid.h-100 {
+    min-height: 100vh;
+    padding: 1rem;
+  }
+  
+  .card-img-fixed {
+    height: 180px;
+    object-fit: cover;
+  }
+  

@@ -56,4 +56,17 @@
     color: red;
     margin-top: 1rem;
   }
+  .logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .logo-image {
+    width: 120px;
+    height: auto;
+    object-fit: contain;
+    background: none; /* Enlève toute couleur de fond */
+    border-radius: 0;  /* Pas d'arrondi si jamais */
+    box-shadow: none; /* Pas d'ombre */
+  }
   
